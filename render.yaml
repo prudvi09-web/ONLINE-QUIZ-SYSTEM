@@ -2,10 +2,8 @@ services:
   # Backend Spring Boot Web Service
   - type: web
     name: quiz-system-backend
-    runtime: java
-    rootDir: backend
-    buildCommand: mvn clean package -DskipTests
-    startCommand: java -jar target/quiz-system-0.0.1-SNAPSHOT.jar
+    env: docker
+    dockerfilePath: ./Dockerfile
     plan: free
     envVars:
       - key: PORT
