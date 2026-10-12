@@ -1,4 +1,5 @@
-const API_BASES = ['/api', 'http://127.0.0.1:8080/api', 'http://localhost:8080/api'];
+const envApiUrl = import.meta.env.VITE_API_URL ? [import.meta.env.VITE_API_URL] : [];
+const API_BASES = [...envApiUrl, '/api', 'http://127.0.0.1:8080/api', 'http://localhost:8080/api'];
 
 export async function apiRequest(endpoint, options = {}) {
   const token = localStorage.getItem('quiz_token');
