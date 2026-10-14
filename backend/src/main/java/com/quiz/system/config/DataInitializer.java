@@ -35,11 +35,12 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        if (userRepository.count() > 0) {
-            return; // Data already initialized
-        }
+        try {
+            if (userRepository.count() > 0) {
+                return; // Data already initialized
+            }
 
-        System.out.println(">>> Initializing Online Quiz System sample database...");
+            System.out.println(">>> Initializing Online Quiz System sample database...");
 
         // 1. Create Default Users
         User admin = new User("System Administrator", "admin@quiz.com", passwordEncoder.encode("admin123"), "ROLE_ADMIN");
@@ -294,5 +295,10 @@ public class DataInitializer implements CommandLineRunner {
         System.out.println(">>> Database initialized successfully with sample users, quizzes, questions, and attempts!");
         System.out.println(">>> Admin: admin@quiz.com / admin123");
         System.out.println(">>> User: user@quiz.com / user123");
+        } catch (Exception e) {
+            System.err.println(">>> [WARN] DataInitializer encountered an issue during sample seeding: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
+
