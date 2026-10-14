@@ -1,5 +1,6 @@
+target/
 backend/target/
-frontend/
+frontend/node_modules/
 .git
 .idea
 *.log
