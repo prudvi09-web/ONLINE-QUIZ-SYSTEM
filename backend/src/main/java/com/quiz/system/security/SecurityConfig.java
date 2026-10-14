@@ -78,13 +78,15 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/index.html", "/favicon.svg", "/icons.svg", "/assets/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/quizzes/active").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/attempts/leaderboard").permitAll()
                         .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/**").authenticated()
+                        .anyRequest().permitAll()
                 );
 
         // Required to render H2 Console frame in development
